@@ -1,0 +1,107 @@
+.game-board {
+}
+
+.behind-door {
+    position: relative;
+    height: 500px;
+    width: 300px;
+    background-color: #222;
+    z-index: 0;
+
+    .door {
+        cursor: pointer;
+        transform-origin: right;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 2;
+    
+        &.open {
+            animation: doorOpen 1s ease-in-out forwards;
+            pointer-events: none;
+            user-select: none;
+        }
+    }
+    .prize {
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+    }
+}
+
+.alert-info {
+    width: 300px;
+}
+
+
+@keyframes doorOpen {
+    80% {
+        transform: perspective(800px) translateZ(0px) translateX(0px) translateY(0px) rotateY(105deg);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.monty-hall-face {
+    float: left;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+    .behind-door {
+        height: 400px;
+        width: 240px;
+    }
+    .alert-info {
+        width: 240px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .behind-door {
+        height: 300px;
+        width: 180px;
+    }
+    .alert-info {
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .behind-door {
+        height: 230px;
+        width: 138px;
+    }
+    .alert-info {
+        width: 138px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .behind-door {
+        height: 160px;
+        width: 96px;
+    }
+    .alert-info {
+        width: 96px;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .behind-door {
+        height: 120px;
+        width: 72px;
+    }
+    .alert-info {
+        width: 72px;
+        padding: 2px;
+    }
+}

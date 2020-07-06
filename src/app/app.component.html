@@ -6,8 +6,69 @@
   <title>Monty Hall Problem</title>
 </head>
 <body>
-    <div class="jumbotron">
-      <h1 class="display-1">Bootstrap works!</h1>
+    <div class="container-fluid">
+      <h1 class="text-center display-4 mb-5">Monty Hall Problem</h1>
+      <div class="row game-board justify-content-around no-gutters">
+        <div class="col-3">
+          <div class="behind-door">
+            <img class="img-fluid door" [ngClass]="{'open': doorToShow==0}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="0">
+            <img class="img-fluid prize" src="assets/img/{{prizes[0]==CAR? 'car.png':'goat.png'}}" alt="prize">
+          </div>
+          <div *ngIf="choice==0" class="text-center alert alert-info">Your Current Choice</div>
+        </div>
+        <div class="col-3">
+          <div class="behind-door">
+            <img class="img-fluid door" [ngClass]="{'open': doorToShow==1}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="1">
+            <img class="img-fluid prize" src="assets/img/{{prizes[1]==CAR? 'car.png':'goat.png'}}" alt="prize">
+          </div>
+          <div *ngIf="choice==1" class="text-center alert alert-info">Your Current Choice</div>
+        </div>
+        <div class="col-3">
+          <div class="behind-door">
+            <img class="img-fluid door" [ngClass]="{'open': doorToShow==2}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="2">
+            <img class="img-fluid prize" src="assets/img/{{prizes[2]==CAR? 'car.png':'goat.png'}}" alt="prize">
+          </div>
+          <div *ngIf="choice==2" class="text-center alert alert-info">Your Current Choice</div>
+        </div>
+      </div>
+      
+      
+    </div>
+
+    <div class="modal fade" id="confirmation-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm your choice</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelChoice()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Would you like to choose Door #{{choice+1}}?</p> 
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelChoice()">Cancel</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#monty-hall-modal" data-dismiss="modal">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="monty-hall-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <img src="assets/img/monty_hall.jpg" alt="" class="img-fluid monty-hall-face">
+            <div class="card ml-2">
+              <div class="card-body">
+                <p>Now I will open a door that has goat in it.</p>
+                <div class="text-right">
+                  <button class="btn btn-secondary" data-dismiss="modal" (click)="showGoat()">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 </body>
 </html>
