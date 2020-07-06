@@ -1,5 +1,15 @@
 # MEANtyHall
 
+## Inspired By **[Monty Hall Problem](https://en.wikipedia.org/wiki/Monty_Hall_problem)**
+
+This is an interactive experiment of Monty Hall Problem.
+
+The user is able to participate as a contestant.
+
+All records/statistics will be kept and computed to see if contestants who switch to other door have a 2/3 chance of winning a car.
+
+---
+
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
 
 ## Development server
