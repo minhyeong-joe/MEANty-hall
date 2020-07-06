@@ -7,32 +7,83 @@
 </head>
 <body>
     <div class="container-fluid">
-      <h1 class="text-center display-4 mb-5">Monty Hall Problem</h1>
+      <h1 id="title" class="text-center display-3 mb-5">Monty Hall Problem</h1>
       <div class="row game-board justify-content-around no-gutters">
         <div class="col-3">
           <div class="behind-door">
-            <img class="img-fluid door" [ngClass]="{'open': doorToShow==0}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="0">
+            <img class="img-fluid door" [ngClass]="{'open': doorToShow==0, 'disabled': doorToShow!=null}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="0">
             <img class="img-fluid prize" src="assets/img/{{prizes[0]==CAR? 'car.png':'goat.png'}}" alt="prize">
           </div>
           <div *ngIf="choice==0" class="text-center alert alert-info">Your Current Choice</div>
         </div>
         <div class="col-3">
           <div class="behind-door">
-            <img class="img-fluid door" [ngClass]="{'open': doorToShow==1}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="1">
+            <img class="img-fluid door" [ngClass]="{'open': doorToShow==1, 'disabled': doorToShow!=null}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="1">
             <img class="img-fluid prize" src="assets/img/{{prizes[1]==CAR? 'car.png':'goat.png'}}" alt="prize">
           </div>
           <div *ngIf="choice==1" class="text-center alert alert-info">Your Current Choice</div>
         </div>
         <div class="col-3">
           <div class="behind-door">
-            <img class="img-fluid door" [ngClass]="{'open': doorToShow==2}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="2">
+            <img class="img-fluid door" [ngClass]="{'open': doorToShow==2, 'disabled': doorToShow!=null}" src="assets/img/door.png" alt="Door" data-toggle="modal" data-target="#confirmation-modal" (click)="onClickDoor($event)" data-id="2">
             <img class="img-fluid prize" src="assets/img/{{prizes[2]==CAR? 'car.png':'goat.png'}}" alt="prize">
           </div>
           <div *ngIf="choice==2" class="text-center alert alert-info">Your Current Choice</div>
         </div>
       </div>
       
-      
+      <div *ngIf="gameEnd" class="alert alert-success mt-3 text-center">
+        <p>Congratulation! You've won a <strong>{{ prizes[choice] }}</strong>!</p>
+        <button class="btn btn-warning" (click)="reset()">Try Again</button>
+      </div>
+
+      <hr class="mt-5"/>
+      <h3 class="text-center">Statistics</h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-light">
+          <thead>
+            <tr>
+              <th scope="col">Changed Decision?</th>
+              <th scope="col">Total</th>
+              <th scope="col">Won a Car</th>
+              <th scope="col">Won a Goat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Changed</th>
+              <td>100</td>
+              <td>67 (67.00 %)</td>
+              <td>33 (33.00 %)</td>
+            </tr>
+            <tr>
+              <th scope="row">Did Not Change</th>
+              <td>50</td>
+              <td>20 (40.00 %)</td>
+              <td>30 (60.00 %)</td>
+            </tr>
+            <tr>
+              <th scope="row">Total</th>
+              <td>150</td>
+              <td>87 (58.00 %)</td>
+              <td>63 (42.00 %)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="mt-5"/>
+      <h3>What is Monty Hall Problem?</h3>
+      <blockquote class="blockquote">
+        <p class="mb-0">The Monty Hall problem is a brain teaser, in the form of a probability puzzle, loosely based on the American television game show Let's Make a Deal and named after its original host, Monty Hall.</p>
+        <p class="mt-3 text-muted wiki-quote">Suppose you're on a game show, and you're given the choice of three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat. He then says to you, "Do you want to pick door No. 2?" Is it to your advantage to switch your choice?</p>
+        <p>Vos Savant's response was that the contestant should switch to the other door. Under the standard assumptions, contestants who switch have a 
+        2/3 chance of winning the car, while contestants who stick to their initial choice have only a 1/3 chance.</p>
+        <footer class="blockquote-footer"><a href="https://en.wikipedia.org/wiki/Monty_Hall_problem" target="_blank">Wikipedia</a></footer>
+      </blockquote>
+      <p class="h4 mt-3 mb-3">This MEAN-stack application lets users play as contestants and collect results to compare with Vos Savant's probability</p>
+    <a href="#title" class="d-block mb-5">Go up to try the game</a>
     </div>
 
     <div class="modal fade" id="confirmation-modal">
@@ -47,22 +98,28 @@
           <div class="modal-body">
             <p>Would you like to choose Door #{{choice+1}}?</p> 
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelChoice()">Cancel</button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#monty-hall-modal" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="setMontyModal('Now I will open a door with a goat in it.', 'open')">Confirm</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="monty-hall-modal">
+    <div class="modal fade" [ngClass]="{'show': showMontyModal!='close'}">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-body">
             <img src="assets/img/monty_hall.jpg" alt="" class="img-fluid monty-hall-face">
             <div class="card ml-2">
               <div class="card-body">
-                <p>Now I will open a door that has goat in it.</p>
+                <p>{{message}}</p>
                 <div class="text-right">
-                  <button class="btn btn-secondary" data-dismiss="modal" (click)="showGoat()">OK</button>
+                  <div *ngIf="showMontyModal=='open'">
+                    <button class="btn btn-secondary" (click)="showGoat()">OK</button>
+                  </div>
+                  <div *ngIf="showMontyModal=='change'">
+                    <button type="button" class="btn btn-secondary" (click)="openResult()">No</button>
+                    <button type="button" class="btn btn-primary" (click)="changeChoice()">Yes</button>
+                  </div>
                 </div>
               </div>
             </div>

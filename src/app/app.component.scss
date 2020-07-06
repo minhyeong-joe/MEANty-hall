@@ -1,6 +1,3 @@
-.game-board {
-}
-
 .behind-door {
     position: relative;
     height: 500px;
@@ -19,17 +16,21 @@
         height: 100%;
         width: 100%;
         z-index: 2;
+        user-select: none;
     
         &.open {
             animation: doorOpen 1s ease-in-out forwards;
             pointer-events: none;
-            user-select: none;
+        }
+        &.disabled {
+            pointer-events: none;
         }
     }
     .prize {
         position: absolute;
         bottom: 0;
         z-index: 1;
+        pointer-events: none;
     }
 }
 
@@ -53,6 +54,15 @@
     width: 100px;
     border-radius: 100%;
     margin-right: 10px;
+}
+
+.modal.show {
+    display: block;
+}
+
+.wiki-quote {
+    text-indent: 20px;
+    font-size: 18px;
 }
 
 @media screen and (max-width: 1200px) {
