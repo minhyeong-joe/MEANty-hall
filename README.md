@@ -12,7 +12,7 @@ All records/statistics will be kept and computed to see if contestants who switc
 
 ## Heroku Deployment
 
-URL: N/A
+URL: [https://meanty-hall.herokuapp.com/](https://meanty-hall.herokuapp.com/)
 
 ---
 
