@@ -10,32 +10,26 @@ All records/statistics will be kept and computed to see if contestants who switc
 
 ---
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
+## Heroku Deployment
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+URL: N/A
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+## Local Deployment
 
-## Build
+1. git clone repository
+2. run `npm install` to install dependencies as node_modules
+3. Manually create `config.env` under `config` directory:
+    ```
+    DB_URI=mongodb+srv://<username>:<password>@<host>/<db-name>?retryWrites=true&w=majority
+    ```
+4. Run `npm run dev` and verify that node server runs correctly and database connection is successful.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to GitHub Pages
-
-Run `ng github-pages:deploy` to deploy to GitHub Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+    You should see something like below in CLI
+    ```
+    Server running on Port <PORT_NUMBER>
+    MongoDB connected to: <DB_HOST> 
+    ```
+5. Run `ng build` and you will see an angular web app built into `dist` directory
+6. You can now try the app locally at `http://localhost:<PORT_NUMBER>`
