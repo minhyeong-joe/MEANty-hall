@@ -14,6 +14,25 @@ All records/statistics will be kept and computed to see if contestants who switc
 
 URL: [https://meanty-hall.herokuapp.com/](https://meanty-hall.herokuapp.com/)
 
+### To deploy on Heroku:
+
+1. Create a local branch `heroku`
+
+2. Create a new app at [Heroku](htttps://heroku.com) Dashboard page.
+
+3. In `heroku` branch, do the following:
+
+    1. exclude `dist`, `config.env` from the `.gitignore`, as they are required for the app to run properly
+    2. In `package.json`, change `"start": "ng serve"` to `"start": "node server"` so that heroku runs app using node.js not angular.
+
+4. add remote heroku repo and push heroku branch by running:
+    ```
+    git add remote heroku https://git.heroku.com/<app-name>.git
+    
+    // git push <remote-name> <local-branch>:<remote-branch>
+    git push heroku heroku:master
+    ```
+
 ---
 
 ## Local Deployment
